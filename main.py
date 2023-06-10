@@ -10,6 +10,7 @@ import allrank_pickrate
 # 저장 / 스샷 경로
 SC_PATH = "C:\\Users\\test2\\Downloads\\data_sicence\\"     # 최상위 디렉토리.
 DATA_PATH = SC_PATH + "data\\"
+ALLRANK_DATA_PATH = DATA_PATH + "allranking_data.csv"
 
 # 폰트 설정
 FONT_PATH = SC_PATH + "fonts\\NanumGothic.ttf"
@@ -17,7 +18,7 @@ FONT_PROP = font_manager.FontProperties(fname=FONT_PATH).get_name()
 rc("font", family=FONT_PROP)
 
 # 전체 랭킹 픽률
-allrank_pickrate.create_table(DATA_PATH + "allranking_data.csv")    #표
-
-
-
+#allrank_pickrate.create_table(ALLRANK_DATA_PATH)    #표
+#allrank_pickrate.create_pie(ALLRANK_DATA_PATH)       #원그래프
+#allrank_pickrate.create_barh(ALLRANK_DATA_PATH)      #막대 그래프
+#allrank_pickrate.create_wc(ALLRANK_DATA_PATH, FONT_PATH)   #워드 클라우드
