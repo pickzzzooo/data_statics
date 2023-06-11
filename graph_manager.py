@@ -1,16 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-import PIL
-from matplotlib import font_manager, rc
 
-# 내꺼
-import allrank_pickrate
 
-# 폰트 설정 / json
-FONT_PATH = "C:\\Users\\test2\\Downloads\\data_sicence\\fonts\\NanumGothic.ttf"
-FONT_PROP = font_manager.FontProperties(fname=FONT_PATH).get_name()
-rc("font", family=FONT_PROP)
+
 
 def pickrate_data_loader(PATH, column):
     # 데이터 딕셔너리

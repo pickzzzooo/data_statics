@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from wordcloud import WordCloud
 import PIL, glob, json
 from matplotlib import font_manager, rc
 
@@ -21,7 +20,6 @@ def meta_point_cal(CHAR_LIST):
     for PATH in CHAR_LIST:
         index = PATH.replace("C:\\Users\\test2\\Downloads\\data_sicence\\data\\char_data\\", "")
         index = index.replace(".csv", "")
-        print(PATH)
         data = graph_manager.pickrate_data_loader(PATH, "계급")
         data_dic[index] = 0
 

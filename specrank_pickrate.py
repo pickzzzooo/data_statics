@@ -1,7 +1,3 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-import PIL
 # 내꺼
 import graph_manager
 
