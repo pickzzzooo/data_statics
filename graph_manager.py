@@ -2,10 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import PIL
+from matplotlib import font_manager, rc
 
 # 내꺼
 import allrank_pickrate
 
+# 폰트 설정 / json
+FONT_PATH = "C:\\Users\\test2\\Downloads\\data_sicence\\fonts\\NanumGothic.ttf"
+FONT_PROP = font_manager.FontProperties(fname=FONT_PATH).get_name()
+rc("font", family=FONT_PROP)
 
 def pickrate_data_loader(PATH, column):
     # 데이터 딕셔너리
@@ -39,7 +44,6 @@ def convert_percent(data_dic):
             round(float(data_dic[char]) / float(all_pick_val) * 100, 2))
     return data_per_dic
 
-
 def create_table(dic, key_arr):
     per_dic = convert_percent(dic)
 
@@ -50,14 +54,53 @@ def create_table(dic, key_arr):
         rank_cnt += 1
         per_dic2[str(rank_cnt) + ". " + char] = per_dic[char] + "%"
 
-    allrank_pickrate_df = pd.DataFrame.from_dict(per_dic2, orient="index", columns=[key_arr[1]])
+    data_df = pd.DataFrame.from_dict(per_dic2, orient="index", columns=[key_arr[1]])
+
+    # Determine the number of sub-tables based on the desired table width
+    table_width = 5  # Number of columns in each sub-table
+    num_sub_tables = len(data_df.columns) // table_width + 1
+
+    fig, ax = plt.subplots(1, 1)
+
+    # Create sub-tables and arrange them horizontally
+    for i in range(num_sub_tables):
+        sub_table = data_df.iloc[:, i * table_width: (i + 1) * table_width]
+
+        table = ax.table(
+            cellText=sub_table.values,
+            cellLoc='right',
+            colLabels=sub_table.columns,
+            rowLabels=sub_table.index,
+            loc='center'
+        )
+        table.auto_set_font_size(False)
+        table.set_fontsize(12)
+        table.scale(1.2, 1.2)
+        table.auto_set_column_width([0, 1])
+        ax.axis('off')
+
+    plt.suptitle(key_arr[2])  # Add a common title for the entire table
+    plt.show()
+
+"""
+def create_table(dic, key_arr):
+    per_dic = convert_percent(dic)
+
+    per_dic2 = {}
+    # 인덱스 값 조정
+    rank_cnt = 0
+    for char in per_dic:
+        rank_cnt += 1
+        per_dic2[str(rank_cnt) + ". " + char] = per_dic[char] + "%"
+
+    data_df = pd.DataFrame.from_dict(per_dic2, orient="index", columns=[key_arr[1]])
     # 표 그리기
     fig, ax = plt.subplots(1, 1)
     table = ax.table(
-        cellText=allrank_pickrate_df.values,
+        cellText=data_df.values,
         cellLoc='right',
-        colLabels=allrank_pickrate_df.columns,
-        rowLabels=allrank_pickrate_df.index,
+        colLabels=data_df.columns,
+        rowLabels=data_df.index,
         loc='center'
     )
     table.auto_set_font_size(False)
@@ -67,7 +110,7 @@ def create_table(dic, key_arr):
     ax.axis('off')
     plt.title(key_arr[2])
     plt.show()
-
+"""
 
 def create_pie(dic, key_arr):
     data_df = pd.DataFrame.from_dict(dic, orient="index", columns=[key_arr[1]])

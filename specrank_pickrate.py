@@ -9,7 +9,6 @@ import graph_manager
 def spec_rank_data_loader(rank, data_list, DATA_PATH):
     # 특정 계급에서의 캐릭터 유저수
     data_dic = {}
-    data_dic2 = {}
 
     for PATH in data_list:
         index = PATH.replace(DATA_PATH + "char_data\\", "")
